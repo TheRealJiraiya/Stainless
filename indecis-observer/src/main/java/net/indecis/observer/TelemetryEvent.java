@@ -46,7 +46,7 @@ public final class TelemetryEvent {
 
     public static void addObserverPosition(JsonObject event, MinecraftClient client) {
         if (!IndecisObserverClient.config().includeExactCoordinates || client.player == null) return;
-        event.add("observerPosition", vec(client.player.getPos()));
+        event.add("observerPosition", vec(new Vec3d(client.player.getX(), client.player.getY(), client.player.getZ())));
     }
 
     public static JsonObject entityIdentity(Entity entity) {
@@ -56,7 +56,7 @@ public final class TelemetryEvent {
         if (uuid != null) o.addProperty("uuid", uuid.toString());
         o.addProperty("name", entity.getName().getString());
         if (IndecisObserverClient.config().includeExactCoordinates) {
-            o.add("position", vec(entity.getPos()));
+            o.add("position", vec(new Vec3d(entity.getX(), entity.getY(), entity.getZ())));
         }
         return o;
     }
