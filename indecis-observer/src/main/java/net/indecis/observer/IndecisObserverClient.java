@@ -87,7 +87,7 @@ public final class IndecisObserverClient implements ClientModInitializer {
         TelemetryEvent.addObserverPosition(event, client);
 
         if (client.player != null) {
-            event.addProperty("distanceFromObserver", TelemetryEvent.round(client.player.getPos().distanceTo(packet.center())));
+            event.addProperty("distanceFromObserver", TelemetryEvent.round(new net.minecraft.util.math.Vec3d(client.player.getX(), client.player.getY(), client.player.getZ()).distanceTo(packet.center())));
         }
 
         if (config().includeExplosionContext) {
@@ -192,7 +192,7 @@ public final class IndecisObserverClient implements ClientModInitializer {
                     event.addProperty("health", TelemetryEvent.round(player.getHealth()));
                 }
                 if (config().includeExactCoordinates) {
-                    event.add("playerPosition", TelemetryEvent.vec(player.getPos()));
+                    event.add("playerPosition", TelemetryEvent.vec(new net.minecraft.util.math.Vec3d(player.getX(), player.getY(), player.getZ())));
                 }
                 TelemetryEvent.addObserverPosition(event, client);
                 transport.enqueue(event);
@@ -231,7 +231,7 @@ public final class IndecisObserverClient implements ClientModInitializer {
                 event.addProperty("entityId", crystal.getId());
                 event.addProperty("crystalUuid", crystal.getUuid().toString());
                 if (config().includeExactCoordinates) {
-                    event.add("crystalPosition", TelemetryEvent.vec(crystal.getPos()));
+                    event.add("crystalPosition", TelemetryEvent.vec(new net.minecraft.util.math.Vec3d(crystal.getX(), crystal.getY(), crystal.getZ())));
                 }
                 event.addProperty("distance", TelemetryEvent.round(client.player.distanceTo(crystal)));
                 TelemetryEvent.addObserverPosition(event, client);
@@ -259,7 +259,7 @@ public final class IndecisObserverClient implements ClientModInitializer {
 
         for (Entity entity : client.world.getEntities()) {
             if (!(entity instanceof EndCrystalEntity crystal)) continue;
-            double d = crystal.getPos().distanceTo(center);
+            double d = new net.minecraft.util.math.Vec3d(crystal.getX(), crystal.getY(), crystal.getZ()).distanceTo(center);
             if (d < nearestDistance) {
                 nearestDistance = d;
                 nearest = crystal;
@@ -270,7 +270,7 @@ public final class IndecisObserverClient implements ClientModInitializer {
             event.addProperty("nearestCrystalEntityId", nearest.getId());
             event.addProperty("nearestCrystalDistance", TelemetryEvent.round(nearestDistance));
             if (config().includeExactCoordinates) {
-                event.add("nearestCrystalPosition", TelemetryEvent.vec(nearest.getPos()));
+                event.add("nearestCrystalPosition", TelemetryEvent.vec(new net.minecraft.util.math.Vec3d(nearest.getX(), nearest.getY(), nearest.getZ())));
             }
         }
     }
