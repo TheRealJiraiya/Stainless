@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "indecisobserver",
+  "version": "${version}",
+  "name": "Indecis Mobile Observer",
+  "description": "Private 6b6t mobile PvP telemetry sensor for IndecisTracker.",
+  "authors": ["TheRealJiraiya", "IndecisTracker"],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.indecis.observer.IndecisObserverClient"
+    ]
+  },
+  "mixins": [
+    "indecisobserver.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "=1.21.11",
+    "java": ">=21",
+    "fabric-api": ">=0.141.6+1.21.11"
+  }
+}
